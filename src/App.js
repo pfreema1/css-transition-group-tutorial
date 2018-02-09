@@ -40,9 +40,12 @@ class App extends React.Component {
 
   /*****************************/
   //logic from todo, unrelated to animation
+
   handleChange = ({ target: { value } }) => {
-    //what are the parameters here?
-    this.setState({ value });
+    // e.target.value
+    // this.setState({someValue: e.target.value})
+    console.log(value);
+    this.setState({ value: value });
   };
 
   handleSubmit = e => {
@@ -55,6 +58,8 @@ class App extends React.Component {
       }
     };
     //append at head - Why is 'newItem' wrapped in array blocks?
+    //A:  newItem is an object, wrapping it in array blocks
+    //makes it so we can use concat to merge the two arrays
     this.setState({
       todos: [newItem].concat(this.state.todos),
       value: ""
@@ -65,6 +70,8 @@ class App extends React.Component {
     this.setState({
       todos: this.state.todos.map(todo => {
         //what is this destructuring doing here?
+        //gives:
+        //todo.key, todo.data.text, and todo.data.isDone
         const { key, data: { text, isDone } } = todo;
         return key === doneKey
           ? { key: key, data: { text: text, isDone: !isDone } }
@@ -78,7 +85,7 @@ class App extends React.Component {
     this.setState({
       todos: this.state.todos.map(({ key, data: { text, isDone } }) => ({
         key: key,
-        data: { test: text, isDone: !allNotDone }
+        data: { text: text, isDone: !allNotDone }
       }))
     });
   };
@@ -109,13 +116,13 @@ class App extends React.Component {
     }));
   };
 
-  //?????
   getStyles = () => {
     const { todos, value, selected } = this.state;
+    console.log("todos:  ", todos);
+    //the filter method takes care of the filtering based on what
+    //is typed into the input (the value) and what is selected
     return todos
       .filter(({ data: { isDone, text } }) => {
-        console.log("text:  ", text);
-        console.log("value:  ", value);
         return (
           text.toUpperCase().indexOf(value.toUpperCase()) >= 0 &&
           ((selected === "completed" && isDone) ||
@@ -151,7 +158,6 @@ class App extends React.Component {
   render() {
     const { todos, value, selected } = this.state;
     const itemsLeft = todos.filter(({ data: { isDone } }) => !isDone).length;
-
     return (
       <section className="todoapp">
         <header className="header">
@@ -242,7 +248,7 @@ class App extends React.Component {
             className="clear-completed"
             onClick={this.handleClearCompleted}
           >
-            Clear Completed
+            Clear completed
           </button>
         </footer>
       </section>
