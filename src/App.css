@@ -1,1 +1,41 @@
+.item {
+  margin: 10px;
+  border: 1px solid black;
+  width: 500px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: lightcoral;
+}
 
+/* When a new item is added to CSSTransitionGroup
+it will get the *-enter css class, and the *-enter-active 
+class is added in the next tick */
+
+.transStyles-enter {
+  opacity: 0;
+}
+
+.transStyles-enter.transStyles-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.transStyles-leave {
+  opacity: 1;
+}
+
+.transStyles-leave.transStyles-leave-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
+
+.transStyles-appear {
+  opacity: 0;
+}
+
+.transStyles-appear.transStyles-appear-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}

@@ -24,7 +24,11 @@ class App extends React.Component {
 
   render() {
     const items = this.state.items.map((item, i) => (
-      <div key={item} onClick={this.handleRemove.bind(null, i)}>
+      <div
+        key={item}
+        className="item"
+        onClick={this.handleRemove.bind(null, i)}
+      >
         {item}
       </div>
     ));
@@ -36,6 +40,8 @@ class App extends React.Component {
           transitionName="transStyles"
           transitionEnterTimeout={500}
           transitionLeaveTimeout={500}
+          transitionAppear={true}
+          transitionAppearTimeout={500}
         >
           {items}
         </CSSTransitionGroup>
