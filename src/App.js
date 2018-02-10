@@ -23,7 +23,7 @@ const Input = styled.input`
 
 const Todo = styled.li`
   width: 100%;
-  height: 0px;
+  height: ${props => (props.enterFinished ? "60px" : "0")}
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,6 +76,15 @@ class App extends Component {
     });
   };
 
+  handleOnEntered = elem => {
+    elem.style.height = "60px";
+    console.log(elem);
+  };
+
+  handleOnExit = elem => {
+    elem.style.height = "";
+  };
+
   render() {
     return (
       <AppWrapper>
@@ -92,6 +101,8 @@ class App extends Component {
                     timeout={{ enter: 500, exit: 500 }}
                     appear={true}
                     key={todo.key}
+                    onEntered={this.handleOnEntered}
+                    onExit={this.handleOnExit}
                   >
                     <Todo
                       onClick={this.handleTodoClickDelete.bind(null, todo.key)}
