@@ -127,3 +127,35 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+/***************************/
+
+.todoTrans-enter {
+  opacity: 0;
+  height: 0;
+}
+
+.todoTrans-enter.todoTrans-enter-active {
+  opacity: 1;
+  height: 60;
+}
+
+.todoTrans-exit {
+  opacity: 1;
+  height: 60;
+}
+
+.todoTrans-exit.todoTrans-exit-active {
+  opacity: 0;
+  height: 0;
+}
+
+.todoTrans-appear {
+  opacity: 0;
+  height: 0;
+}
+
+.todoTrans-appear.todoTrans-appear-active {
+  opacity: 1;
+  height: 1;
+}

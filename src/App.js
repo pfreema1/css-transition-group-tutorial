@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import CSSTransitionGroup from "react-transition-group";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import styled from "styled-components";
 
 const AppWrapper = styled.div`
@@ -14,6 +14,8 @@ const AppWrapper = styled.div`
 
 const TodoWrapper = styled.div`
   width: 450px;
+  height: 100%;
+  transition: all 0.5s ease-in-out;
 `;
 
 const Input = styled.input`
@@ -21,9 +23,15 @@ const Input = styled.input`
   height: 60px;
 `;
 
-const Todo = styled.div`
+const Todo = styled.li`
   width: 100%;
   height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: skyblue;
+  transition: all 0.5s ease-in-out;
+  border 1px solid yellow;
 `;
 
 class App extends Component {
@@ -35,31 +43,67 @@ class App extends Component {
         { key: 1, text: "meow a lot" },
         { key: 2, text: "make a doodoo" },
         { key: 3, text: "dodadoodoo" }
-      ]
+      ],
+      value: ""
     };
   }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    //make new object for new todo
+    let tempTodo = {
+      key: Date.now(),
+      text: this.state.value
+    };
+
+    this.setState({
+      todos: [tempTodo].concat(this.state.todos),
+      value: ""
+    });
+  };
+
+  handleChange = event => {
+    this.setState({
+      value: event.target.value
+    });
+  };
+
+  handleTodoClickDelete = key => {
+    let newTodos = this.state.todos.filter(todo => {
+      return todo.key !== key;
+    });
+
+    this.setState({
+      todos: newTodos
+    });
+  };
 
   render() {
     return (
       <AppWrapper>
         <TodoWrapper>
-          <Input />
+          <form onSubmit={this.handleSubmit}>
+            <Input onChange={this.handleChange} value={this.state.value} />
+          </form>
           <ul>
-            <CSSTransitionGroup
-              transitionName="todoTrans"
-              transitionAppear={true}
-              transitionAppearTimeout={500}
-              transitionEnterTimeout={500}
-              transitionLeaveTimeout={500}
-            >
+            <TransitionGroup>
               {this.state.todos.map(todo => {
                 return (
-                  <li key={todo.key}>
-                    <Todo>{todo.text}</Todo>
-                  </li>
+                  <CSSTransition
+                    classNames="todoTrans"
+                    timeout={{ enter: 500, exit: 500 }}
+                    appear={true}
+                    key={todo.key}
+                  >
+                    <Todo
+                      onClick={this.handleTodoClickDelete.bind(null, todo.key)}
+                    >
+                      {todo.text}
+                    </Todo>
+                  </CSSTransition>
                 );
               })}
-            </CSSTransitionGroup>
+            </TransitionGroup>
           </ul>
         </TodoWrapper>
       </AppWrapper>
