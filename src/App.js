@@ -14,8 +14,6 @@ const AppWrapper = styled.div`
 
 const TodoWrapper = styled.div`
   width: 450px;
-  height: 100%;
-  transition: all 0.5s ease-in-out;
 `;
 
 const Input = styled.input`
@@ -25,7 +23,7 @@ const Input = styled.input`
 
 const Todo = styled.li`
   width: 100%;
-  height: 60px;
+  height: 0px;
   display: flex;
   justify-content: center;
   align-items: center;

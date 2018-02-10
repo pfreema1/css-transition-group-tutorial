@@ -137,12 +137,12 @@ table {
 
 .todoTrans-enter.todoTrans-enter-active {
   opacity: 1;
-  height: 60;
+  height: 60px;
 }
 
 .todoTrans-exit {
   opacity: 1;
-  height: 60;
+  height: 60px;
 }
 
 .todoTrans-exit.todoTrans-exit-active {
